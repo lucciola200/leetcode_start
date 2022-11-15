@@ -40,12 +40,13 @@ public class Top100LikedQuestions {
 //        int target3 = 7;
 //        System.out.println(searchInsert(nums, target3));
 
+
 //--------70. Climbing Stairs
 //--------smt like Fibonacci
-
 //        Scanner in = new Scanner(System.in);
 //        int n = in.nextInt();
 //        System.out.println(climbStairs(n));
+
     }
 
     //1. Two Sum
