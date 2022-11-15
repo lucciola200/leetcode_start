@@ -1,10 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Top100LikedQuestions {
     public void runSolutions() {
+// -------1. Two Sum
+//        int[] numAr = {2, 7, 11, 15};
+//        int target1 = 9;
+//        int[] solution = twoSum(numAr, target1);
+//        System.out.println(Arrays.toString(solution));
+//
+//        int[] numAr2 = {2, 3, 4};
+//        int target2 = 6;
+//        int[] solution2 = twoSum(numAr2, target2);
+//        System.out.println(Arrays.toString(solution2));
 
 // -------20. Valid Parentheses
 //        Scanner in = new Scanner(System.in);
@@ -34,12 +41,28 @@ public class Top100LikedQuestions {
 //        System.out.println(searchInsert(nums, target3));
 
 //--------70. Climbing Stairs
-//------------*smt like Fibonacci
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        System.out.println(climbStairs(n));
+//--------smt like Fibonacci
+
+//        Scanner in = new Scanner(System.in);
+//        int n = in.nextInt();
+//        System.out.println(climbStairs(n));
     }
 
+    //1. Two Sum
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int curr = nums[i];
+            int x = target - curr;
+            if (map.containsKey(x)) {
+                return new int[]{map.get(x), i};
+            }
+            map.put(curr, i);
+        }
+        return null;
+    }
+
+    //20. Valid Parentheses
     public boolean isValid(String s) {
         if (s.length() % 2 != 0) {
             return false;
@@ -50,7 +73,7 @@ public class Top100LikedQuestions {
         map.put('[', ']');
         map.put('{', '}');
 
-        Stack<Character> stack = new Stack<Character>();
+        Stack<Character> stack = new Stack<>();
         for (Character ch : s.toCharArray()) {
             if (map.containsKey(ch)) {
                 stack.push(ch);
@@ -67,6 +90,7 @@ public class Top100LikedQuestions {
         return stack.isEmpty();
     }
 
+    //21. Merge Two Sorted Lists
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
         ListNode preHead = new ListNode(-1);
@@ -86,6 +110,7 @@ public class Top100LikedQuestions {
         return preHead.next;
     }
 
+    //35. Search Insert Position
     public int searchInsert(int[] nums, int target) {
         int middle, left = 0, right = nums.length - 1;
         while (left <= right) {
@@ -99,6 +124,7 @@ public class Top100LikedQuestions {
         return left;
     }
 
+    //70. Climbing Stairs
     public int climbStairs(int n) {
         if (n == 1) {
             return 1;
