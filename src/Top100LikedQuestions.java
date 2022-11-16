@@ -47,6 +47,15 @@ public class Top100LikedQuestions {
 //        int n = in.nextInt();
 //        System.out.println(climbStairs(n));
 
+//--------94. Binary Tree Inorder Traversal
+        TreeNode left = new TreeNode();
+        left.val = 1;
+        TreeNode right = new TreeNode();
+        right.val = 3;
+        TreeNode middle = new TreeNode(2, left, right);
+
+        inorderTraversal(left);
+
     }
 
     //1. Two Sum
@@ -140,4 +149,57 @@ public class Top100LikedQuestions {
         }
         return second;
     }
+
+
+    //94. Binary Tree Inorder Traversal
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curr = root;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            res.add(curr.val);
+            curr = curr.right;
+        }
+        return res;
+    }
+
+    //101. Symmetric Tree _ recursion
+    public boolean isSymmetric(TreeNode root) {
+        return isMirror(root.left, root.right);
+    }
+
+    public boolean isMirror(TreeNode left, TreeNode right){
+        if(left == null && right == null) return true;
+        if(left == null || right == null) return false;
+
+        return (left.val == right.val)
+                && isMirror(left.right, right.left)
+                && isMirror(left.left, right.right);
+    }
+
+    //101. Symmetric Tree _ Iterative
+    public boolean isSymmetric2(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node1 = stack.pop();
+            TreeNode node2 = stack.pop();
+            if (node1 == null && node2 == null) continue;
+            if (node1 == null || node2 == null) return false;
+            if (node1.val != node2.val) return false;
+            stack.push(node1.left);
+            stack.push(node2.right);
+            stack.push(node1.right);
+            stack.push(node2.left);
+        }
+        return true;
+    }
+
+
 }
