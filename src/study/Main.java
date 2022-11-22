@@ -93,7 +93,7 @@ class Tree {
         return find(root, x);
     }
 
-    void delete(Node t){
+    void delete(Node t) {
         if (t == null) return;
     }
 
@@ -108,6 +108,25 @@ class Tree {
 
         delete(t);
 
+    }
+
+    void print(Node v) {
+        if (v == null) return;
+        print(v.l);
+        System.out.println(v.x);
+        print(v.r);
+    }
+
+
+    boolean check(Node v, Integer l, Integer r) {
+        if (v == null) return true;
+        if (l != null && v.x < l) return false;
+        if (r != null && v.x > r) return false;
+        return check(v.l, l, v.x) && check(v.r, v.x, r);
+    }
+
+    boolean check() {
+        return check(root, null, null);
     }
 
 }
