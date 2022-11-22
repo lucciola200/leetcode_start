@@ -48,13 +48,21 @@ public class Top100LikedQuestions {
 //        System.out.println(climbStairs(n));
 
 //--------94. Binary Tree Inorder Traversal
-        TreeNode left = new TreeNode();
-        left.val = 1;
-        TreeNode right = new TreeNode();
-        right.val = 3;
-        TreeNode middle = new TreeNode(2, left, right);
+//        TreeNode left = new TreeNode();
+//        left.val = 1;
+//        TreeNode right = new TreeNode();
+//        right.val = 3;
+//        TreeNode middle = new TreeNode(2, left, right);
+//
+//        inorderTraversal(left);
 
-        inorderTraversal(left);
+
+
+        //////Trees ----???
+
+
+//---------118. Pascal's Triangle
+        generate(5);
 
     }
 
@@ -201,5 +209,57 @@ public class Top100LikedQuestions {
         return true;
     }
 
+    //104. Maximum Depth of Binary Tree
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left_height = maxDepth(root.left);
+            int right_height = maxDepth(root.right);
+            return java.lang.Math.max(left_height, right_height) + 1;
+        }
+    }
 
+    //108. Convert Sorted Array to Binary Search Tree
+    int[] nums;
+
+    public TreeNode recurssionBST(int left, int right){
+        if(left > right) return null;
+
+        int temp = (left + right) / 2;
+
+        TreeNode root = new TreeNode(nums[temp]);
+
+        root.left = recurssionBST(left, temp-1);
+        root.right = recurssionBST(temp+1, right);
+        return root;
+    }
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        this.nums = nums;
+        return recurssionBST(0, nums.length - 1);
+    }
+
+    //118. Pascal's Triangle
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+
+        triangle.add(new ArrayList<>());
+        triangle.get(0).add(1);
+
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> currRow = new ArrayList<>();
+            List<Integer> prevRow = triangle.get(i-1);
+
+            //first element
+            currRow.add(1);
+            for (int j = 1; j < i; j++) {
+                currRow.add(prevRow.get(j-1) + prevRow.get(j));
+            }
+            //last element
+            currRow.add(1);
+            triangle.add(currRow);
+        }
+        return triangle;
+    }
 }
