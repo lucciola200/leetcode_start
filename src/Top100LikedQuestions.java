@@ -57,12 +57,25 @@ public class Top100LikedQuestions {
 //        inorderTraversal(left);
 
 
-
         //////Trees ----???
 
 
 //---------118. Pascal's Triangle
-        generate(5);
+//        generate(5);
+
+
+//--------121. Best Time to Buy and Sell Stock
+//        int[] prices = {7, 1, 5, 3, 6, 4};
+//        System.out.println(maxProfit(prices));
+//
+//        int[] prices2 = {7, 6, 4, 3, 1};
+//        System.out.println(maxProfit(prices2));
+
+//        int[] prices3 = {7, 2, 10, 3, 1, 6, 4};
+//        System.out.println(maxProfit(prices3));
+
+        int[] singleNumbers = {2, 2, 1};
+        System.out.println(singleNumber(singleNumbers));
 
     }
 
@@ -181,9 +194,9 @@ public class Top100LikedQuestions {
         return isMirror(root.left, root.right);
     }
 
-    public boolean isMirror(TreeNode left, TreeNode right){
-        if(left == null && right == null) return true;
-        if(left == null || right == null) return false;
+    public boolean isMirror(TreeNode left, TreeNode right) {
+        if (left == null && right == null) return true;
+        if (left == null || right == null) return false;
 
         return (left.val == right.val)
                 && isMirror(left.right, right.left)
@@ -223,15 +236,15 @@ public class Top100LikedQuestions {
     //108. Convert Sorted Array to Binary Search Tree
     int[] nums;
 
-    public TreeNode recurssionBST(int left, int right){
-        if(left > right) return null;
+    public TreeNode recurssionBST(int left, int right) {
+        if (left > right) return null;
 
         int temp = (left + right) / 2;
 
         TreeNode root = new TreeNode(nums[temp]);
 
-        root.left = recurssionBST(left, temp-1);
-        root.right = recurssionBST(temp+1, right);
+        root.left = recurssionBST(left, temp - 1);
+        root.right = recurssionBST(temp + 1, right);
         return root;
     }
 
@@ -249,12 +262,12 @@ public class Top100LikedQuestions {
 
         for (int i = 1; i < numRows; i++) {
             List<Integer> currRow = new ArrayList<>();
-            List<Integer> prevRow = triangle.get(i-1);
+            List<Integer> prevRow = triangle.get(i - 1);
 
             //first element
             currRow.add(1);
             for (int j = 1; j < i; j++) {
-                currRow.add(prevRow.get(j-1) + prevRow.get(j));
+                currRow.add(prevRow.get(j - 1) + prevRow.get(j));
             }
             //last element
             currRow.add(1);
@@ -262,4 +275,35 @@ public class Top100LikedQuestions {
         }
         return triangle;
     }
+
+    //121. Best Time to Buy and Sell Stock
+    public int maxProfit(int[] prices) {
+        int maxprofit = 0;
+        int minprice = Integer.MAX_VALUE;
+
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minprice) {
+                minprice = prices[i];
+            } else if (prices[i] - minprice > maxprofit) {
+                maxprofit = prices[i] - minprice;
+            }
+        }
+
+        return maxprofit;
+    }
+
+    //136. Single Number
+    public int singleNumber(int[] nums) {
+        List<Integer> no_duplicate_list = new ArrayList<>();
+
+        for (int i : nums) {
+            if (!no_duplicate_list.contains(i)) {
+                no_duplicate_list.add(i);
+            } else {
+                no_duplicate_list.remove(Integer.valueOf(i));
+            }
+        }
+        return no_duplicate_list.get(0);
+    }
 }
+
