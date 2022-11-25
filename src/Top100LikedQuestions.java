@@ -73,9 +73,15 @@ public class Top100LikedQuestions {
 
 //        int[] prices3 = {7, 2, 10, 3, 1, 6, 4};
 //        System.out.println(maxProfit(prices3));
+//
+//        int[] singleNumbers = {2, 2, 1};
+//        System.out.println(singleNumber(singleNumbers));
 
-        int[] singleNumbers = {2, 2, 1};
-        System.out.println(singleNumber(singleNumbers));
+//--------141. Linked List Cycle
+
+
+//        160. Intersection of Two Linked Lists
+
 
     }
 
@@ -305,5 +311,53 @@ public class Top100LikedQuestions {
         }
         return no_duplicate_list.get(0);
     }
+
+    //141. Linked List Cycle
+    public boolean hasCycle(ListNode head) {
+        Set<Integer> nodes = new HashSet<>();
+
+        while (head != null) {
+            if (nodes.contains(head.val)) {
+                return true;
+            }
+            nodes.add(head.val);
+            head = head.next;
+        }
+        return false;
+    }
+
+    //141. Linked List Cycle _ solutions by two pointers -don't understand
+    public boolean hasCycle2(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return false;
+    }
+
+    //    160
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode nodeA = headA;
+        ListNode nodeB = headB;
+        while (nodeA != nodeB) {
+            nodeA = nodeA == null ? headB : nodeA.next;
+            nodeB = nodeB == null ? headA :nodeB.next;
+        }
+        return nodeA;
+    }
+
 }
 
