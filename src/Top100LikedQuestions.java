@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class Top100LikedQuestions {
+    private int beginning;
+    private int length;
+
     public void runSolutions() {
 // -------1. Two Sum
 //        int[] numAr = {2, 7, 11, 15};
@@ -82,8 +85,19 @@ public class Top100LikedQuestions {
 
 //        160. Intersection of Two Linked Lists
 
+//--------3. Longest Substring Without Repeating Characters
+//        int l = lengthOfLongestSubstring("abcdbabcbbabscdeb");
+//        System.out.println(l);
+
+//------5. Longest Palindromic Substring
+//        System.out.println(longestPalindrome("cbbd"));
+//        System.out.println(longestPalindrome("babad"));
+        System.out.println(longestPalindrome("ab"));
+//        System.out.println(longestPalindrome("aacabdkacaa"));
+
 
     }
+
 
     //1. Two Sum
     public int[] twoSum(int[] nums, int target) {
@@ -345,7 +359,7 @@ public class Top100LikedQuestions {
         return false;
     }
 
-    //    160
+    //160
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) {
             return null;
@@ -354,9 +368,106 @@ public class Top100LikedQuestions {
         ListNode nodeB = headB;
         while (nodeA != nodeB) {
             nodeA = nodeA == null ? headB : nodeA.next;
-            nodeB = nodeB == null ? headA :nodeB.next;
+            nodeB = nodeB == null ? headA : nodeB.next;
         }
         return nodeA;
+    }
+
+    //3
+    public int lengthOfLongestSubstring(String s) {
+        int count = 0;
+        int[] seen = new int[256];
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            int ch = seen[s.charAt(j)];
+            i = Math.max(i, seen[s.charAt(j)]);
+            count = Math.max(count, j - i + 1);
+            seen[s.charAt(j)] = j + 1;
+        }
+        return count;
+
+    }
+
+    //5. Longest Palindromic Substring
+//    public String longestPalindrome(String s) {
+//        String res = s.substring(0, 1);
+//        for (int start = 0; start < s.length(); start++) {
+//            for (int end = s.length() - 1; end > start; end--) {
+//                String subStr = s.substring(start, end + 1);
+//                if (isPalindrome(subStr)){
+////                    System.out.println(subStr);
+//                    res = subStr.length()>res.length() ? subStr : res;
+//                }
+//
+//            }
+//        }
+//
+//
+//        return res;
+//    }
+//
+//    public boolean isPalindrome(String p) {
+//        int left = 0;
+//        int right = p.length() - 1;
+//
+//        while (left < right) {
+//            if (p.charAt(left) != p.charAt(right)) {
+//                return false;
+//            } else {
+//                left++;
+//                right--;
+//            }
+//        }
+//        return true;
+//    }
+//    public String longestPalindrome(String s) {
+//        if (s == null || s.length() < 1) return "";
+//        int start = 0, end = 0;
+//        for (int i = 0; i < s.length(); i++) {
+//            int len1 = expandAroundCenter(s, i, i);
+//            int len2 = expandAroundCenter(s, i, i + 1);
+//            int len = Math.max(len1, len2);
+//            if (len > end - start) {
+//                start = i - (len - 1) / 2;
+//                end = i + len / 2;
+//            }
+//        }
+//        return s.substring(start, end + 1);
+//    }
+//
+//    private int expandAroundCenter(String s, int left, int right) {
+//        int L = left, R = right;
+//        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+//            L--;
+//            R++;
+//        }
+//        return R - L - 1;
+//    }
+
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() < 2) return s;
+
+        for (int i = 0; i < s.length(); i++) {
+            checkPalindrome(s, i, i);
+            checkPalindrome(s, i, i + 1);
+
+        }
+
+        return s.substring(beginning, beginning + length);
+
+    }
+
+    public void checkPalindrome(String s, int start, int end) {
+        while (start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)) {
+            start--;
+            end++;
+        }
+        if (end - start > length) {
+            length = end - start - 1;
+            beginning = start + 1;
+        }
+
     }
 
 }
