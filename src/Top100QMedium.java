@@ -7,9 +7,20 @@ public class Top100QMedium {
 //        System.out.println(convert("ABCD", 3));
 
 //        7. Reverse Integer
-        System.out.println(reverse(1534236469));
-        System.out.println(reverse(324));
+//        System.out.println(reverse(1534236469));
+//        System.out.println(reverse(324));
+
+//        System.out.println(isPalindrome(-121));
+
+
+//        11. Container With Most Water
+//        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+//        System.out.println(maxArea(height));
+
+//        15. 3Sum
+
     }
+
 
     //    6. Zigzag Conversion
     public String convert(String s, int numRows) {
@@ -49,10 +60,27 @@ public class Top100QMedium {
         while (x != 0) {
             int pop = x % 10;
             x /= 10;
-            if (reverse > Integer.MAX_VALUE/10 || (reverse == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
-            if (reverse < Integer.MIN_VALUE/10 || (reverse == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
+            if (reverse > Integer.MAX_VALUE / 10 || (reverse == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
+            if (reverse < Integer.MIN_VALUE / 10 || (reverse == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
             reverse = reverse * 10 + pop;
         }
         return reverse;
+    }
+
+    //    9. Palindrome Number
+    public boolean isPalindrome(int x) {
+        return x < 0 ? false : reverse(x) == x;
+    }
+
+    //11. Container With Most Water
+    private int maxArea(int[] height) {
+        int maxValue = 0;
+        for (int l = 0, r = height.length - 1; l < r; ) {
+            maxValue = Math.max(maxValue, (r - l) * Math.min(height[l], height[r]));
+            if (height[l] < height[r]) {
+                l++;
+            } else r--;
+        }
+        return maxValue;
     }
 }
